@@ -4,6 +4,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var server = require('gulp-develop-server');
+var del = require('del');
 
 var SRC = ['src/**/*.js'];
 var DEST = 'build';
@@ -41,4 +42,8 @@ gulp.task('server:start', function(){
 
 gulp.task('server:restart', function(){
   server.restart();
+});
+
+gulp.task('clean', function(cb){
+  del([DEST], cb);
 });
