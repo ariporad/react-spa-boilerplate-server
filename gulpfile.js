@@ -12,7 +12,7 @@ var TESTS = 'src/**/*.test.js';
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['test'], function() {
+gulp.task('build', function() {
   return gulp.src(SRC)
     .pipe(plugins.changed(DEST))
     .pipe(plugins.babel())
@@ -26,22 +26,23 @@ gulp.task('lint', function() {
     .pipe(plugins.eslint.failAfterError());
 });
 
-gulp.task('test', ['lint'], function() {
+gulp.task('test', ['lint', 'mocha']);
+gulp.task('mocha', function() {
   require('babel/register'); // Allow ES6 tests
   return gulp.src(TESTS)
     .pipe(plugins.mocha());
 });
 
 gulp.task('watch', ['build', 'server:start'], function() {
-  gulp.watch(SRC, ['build', 'server:restart']);
+  gulp.watch(SRC, ['test', 'build', 'server:restart']);
 });
 
-gulp.task('run', ['build', 'server:start']);
-gulp.task('server:start', function(){
+gulp.task('run', ['server:start']);
+gulp.task('server:start', ['test', 'build'], function(){
   server.listen({ path: './' + DEST + '/index.js' });
 });
 
-gulp.task('server:restart', function(){
+gulp.task('server:restart', ['build'], function(){
   server.restart();
 });
 
