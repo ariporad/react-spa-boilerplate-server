@@ -37,7 +37,7 @@ gulp.task('watch', ['build', 'server:start'], function() {
 });
 
 gulp.task('server:start', function(){
-  server.listen({ path: './src/index.js' });
+  server.listen({ path: './' + DEST + '/index.js' });
 });
 
 gulp.task('server:restart', function(){
