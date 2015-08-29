@@ -11,8 +11,12 @@
   "author": "Ari Porad <npm@ariporad.com> (http://github.com/ariporad)",
   "license": "MIT",
   "dependencies": {
+    "babel": "^5.8.23",
     "eslint": "^1.3.0",
     "koa": "^1.0.0",
+    "koa-load-middlewares": "^1.0.0",
+    "koa-parse-json": "^1.0.1",
+    "koa-router": "^5.1.2",
     "source-map-support": "^0.3.2"
   },
   "devDependencies": {
