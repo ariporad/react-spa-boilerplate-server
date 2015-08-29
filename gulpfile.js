@@ -19,7 +19,9 @@ gulp.task('default', ['build']);
 gulp.task('build', function() {
   return gulp.src(SRC)
     .pipe(plugins.changed(DEST))
+    .pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel())
+    .pipe(plugins.sourcemaps.write())
     .pipe(gulp.dest(DEST));
 });
 
