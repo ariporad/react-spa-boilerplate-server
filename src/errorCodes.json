@@ -1,7 +1,0 @@
-{
-  "200": "EITSALLOK",
-  "401": "ENOTAUTHD",
-  "403": "EFORBIDEN",
-  "404": "ENOTFOUND",
-  "500": "E500ERROR"
-}
