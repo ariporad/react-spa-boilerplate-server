@@ -3,8 +3,7 @@
  */
 const koa = require('koa');
 const middleware = require('koa-load-middlewares')();
-const app = koa();
-const router = middleware.router();
+const http = require('http');
 
 function forceType(type) {
   return function *forceResponseType(next) {
@@ -13,7 +12,10 @@ function forceType(type) {
   };
 }
 
-module.exports.start = function(port) {
+module.exports.start = function start(port, cb) {
+  // These are setup down here for easy injection during testing
+  const app = koa();
+  const router = middleware.router();
 
   app
     .use(middleware.error());
@@ -36,6 +38,15 @@ module.exports.start = function(port) {
     this.body = yield Promise.resolve('hello world!');
   });
 
-  app.listen(port);
-  console.log('Server listening on port %s', port);
+  if (!port) return app;
+
+  const server = http.createServer(app.callback());
+  server.listen(port, cb);
+  return { app, server };
 };
+
+module.exports.stop = function stop({ app, server }, cb) {
+  server.stop(cb);
+};
+
+// TODO: How To Test?

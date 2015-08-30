@@ -6,4 +6,8 @@ require('dotenv').load();
 require('source-map-support').install();
 
 var app = require(process.env.APP_PATH || './index.js');
-app.start(process.env.PORT || 8080);
+
+var port = process.env.PORT || 8080;
+app.start(port, function(){
+  console.log('Server listening on port', port);
+});
