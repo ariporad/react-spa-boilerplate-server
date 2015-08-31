@@ -13,7 +13,10 @@ var DEST = './build';
 
 var TESTS = 'src/**/*.test.js';
 
+// main.js is used to start the server
 var START_SCRIPT = './main.js';
+// this is the script passed to main.js that it should load and run. Relative to DEST.
+var MAIN_SCRIPT = 'index.js';
 
 gulp.task('default', ['build']);
 gulp.task('build', ['build:js', 'copy:other']);
@@ -52,11 +55,12 @@ gulp.task('watch', ['build', 'server:start'], function() {
 gulp.task('run', ['server:start']);
 gulp.task('server:start', ['test', 'build'], function() {
   var startScriptPath = START_SCRIPT.split('/').slice(0, -1).join('/');
-  var appEntryPath = './' + path.relative(startScriptPath, path.join(DEST, 'index.js'));
+  var appDir = path.resolve(__dirname, startScriptPath, DEST);
+  var appPath = path.join(appDir, MAIN_SCRIPT);
 
   server.listen({
     path: START_SCRIPT,
-    env: { NODE_ENV: 'development', APP_PATH: appEntryPath }
+    env: { NODE_ENV: 'development', APP_PATH: appPath, APP_DIR: appDir }
   });
 });
 
