@@ -41,6 +41,8 @@
     "gulp-sourcemaps": "^1.5.2",
     "koa-notifier": "^0.1.1",
     "mocha": "^2.2.5",
+    "promisify-supertest": "^1.0.0",
+    "rewire": "^2.3.4",
     "sinon": "^1.16.1",
     "supertest": "^1.1.0"
   }
